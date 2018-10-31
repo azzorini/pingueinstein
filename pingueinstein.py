@@ -28,7 +28,7 @@ commands = {  # command description used in the "help" command
 			  #'juego': 'Hacer un movimiento en la partida (/juego b2)'
 }
 
-nMemes = 2
+nMemes = 3
 
 chistes = ["Van dos y se cae PRADO",
 		   "Making bad chemistry jokes because all the good ones argon",
