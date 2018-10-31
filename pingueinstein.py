@@ -14,7 +14,7 @@ import tresenraya as TER
 
 TOKEN = '' # Nuestro token del bot (el que @BotFather nos dió).
 
-partidas = {}
+# partidas = {}
 
 commands = {  # command description used in the "help" command
 
