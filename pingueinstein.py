@@ -30,6 +30,12 @@ commands = {  # command description used in the "help" command
 
 nMemes = 7
 
+inultos = [" ligas menos que un gas noble", " eres el mejor protón de un átomo de hidrógeno",
+	   ", hazle caso a Ignacio y mete los dedos en un enchufe", ", 28 hostias te mereces",
+	   ", haznos un favor y deja de aumentar la entropía del Universo",
+	   " haces menos falta que un paracaídas en un submarino", ", multiplícate por cero",
+	   ", me recuerdas a PRADO. ¡Siempre estás por los suelos!"]
+
 chistes = ["Van dos y se cae PRADO",
 		   "Making bad chemistry jokes because all the good ones argon",
 		   "¿Qué dice un grupo CH3 en lo alto de un tejado?\n¿Metilo o no metilo?",
@@ -247,6 +253,15 @@ def miguel_angel(m):
 @bot.message_handler(func=lambda message: message.content_type == "text" and "bernier" in message.text.lower())
 def bernier(m):
     bot.reply_to(m, "Buah, no veas con er DJ Petardo con él la fiesta está garantizada:\n\nwhile (true) {\n    fiesta++;\n}")
+
+# len("insulta a ") == 10
+@bot.message_handler(func=lambda message: message.content_type == "text" and message.text.lower()[:10] == "insulta a ")
+def insulto(m):
+    cid = m.chat.id
+    name = m.text[10:]
+    insult = random.choice(insultos)
+    bot.send_message(cid, name + insult)
+    
 
 #############################################
 
