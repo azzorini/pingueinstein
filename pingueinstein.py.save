@@ -12,7 +12,7 @@ import logging
 import sympy
 import tresenraya as TER
 
-TOKEN = '735319701:AAF3CdGsOkHegV2ZnFwh1I09VD1g4MoH_90' # Nuestro token del bot (el que @BotFather nos dió).
+TOKEN = '' # Nuestro token del bot (el que @BotFather nos dió).
 
 partidas = {}
 
