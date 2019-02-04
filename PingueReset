@@ -1,0 +1,5 @@
+#!/bin/bash
+while true: do
+	screen -dmS PantallaPingue /home/pi/pingueinstein/pingueinstein.py
+	sleep 1d
+dene
