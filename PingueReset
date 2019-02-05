@@ -1,9 +1,0 @@
-#!/bin/bash
-while true
-do
-    pkill screen
-    screen -S Pingu -d -m ~/Programacion/Python/pingueinstein/pingueinstein.py
-    date
-    echo El programa se reiniciará en 4 horas
-    sleep 4h
-done
