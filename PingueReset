@@ -15,7 +15,10 @@ do
 	# Si el programa se acaba de arrancar o son las 5 am se clona el github
 	if (($hora == 5 || $id == 0))
 	then
+		cd ~
+		rm -rf pingueinstein
 		git clone https://github.com/azzorini/pingueinstein
+		cd pingueinstein
 	fi
     
     screen -S Pingu -d -m ~/pingueinstein/pingueinstein.py
