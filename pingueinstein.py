@@ -18,7 +18,7 @@ token_file.close()
 
 partidas = {}
 
-pole = AdminPole("polelog.txt")
+
 
 commands = {  # command description used in the "help" command
 
@@ -301,11 +301,22 @@ def Peralta(m):
 def Roque(m):
 	bot.reply_to(m, "¿Les he escrito ya a ustedes la primera ley de la Termodinámica?\n\ndU = dQ - dW")
 
-@bot.message_handler(func=lambda message: message.content_type == "text" and ("28" in message.text or " 28 " in message.text or " 28" in message.text or "veintiocho" in message.text.lower()))
-def paco_polo(m):
+#@bot.message_handler(func=lambda message: message.content_type == "text" and ("28" in message.text or " 28 " in message.text or " 28" in message.text or "veintiocho" in message.text.lower()))
+#def paco_polo(m):
+#	cid = m.chat.id
+#	bot.reply_to(m, "¿Has dicho 28?")
+#	bot.send_photo(cid, open("paco_polo.png", "rb"))
+
+@bot.message_handler(func=lambda message: message.content_type == "text" and "bochan" in message.text.lower())
+def bochan(m):
 	cid = m.chat.id
-	bot.reply_to(m, "¿Has dicho 28?")
-	bot.send_photo(cid, open("paco_polo.png", "rb"))
+	bot.reply_to(m, "Boo")
+#	bot.send_photo(cid, open("bochan.png", "rb"))
+
+@bot.message_handler(func=lambda message: message.content_type == "text" and "cabrerizo" in message.text.lower())
+def cabrerizo(m):
+	cid = m.chat.id
+	bot.reply_to(m, "Tira de la cuerda")
 	
 bot.message_handler(func=lambda message: message.content_type == "text" and "luis javier" in message.text.lower())
 def luis_javier(m): #programación 1ºC
@@ -342,10 +353,7 @@ asignaturaschungas = ["Mecánica", "Termodinámica", "Electromagnetismo", "Cuán
 def trollFail(m):
     bot.reply_to(m, "Fail, la nota que vas a tener en " + random.choice(asignaturaschungas))
     
-### Beta Pole
-@bot.message_handler(func=lambda message: message.content_type == "text" and "pole" == message.text.lower())
-def pole_message(m):
-	if 
+
 	
 #############################################
 
