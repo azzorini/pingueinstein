@@ -20,6 +20,7 @@ do
 		git clone https://github.com/azzorini/pingueinstein
 		cp TOKEN.txt pingueinstein
 		cd pingueinstein
+		chmod +x pingueinstein.py
 	fi
     
     screen -S Pingu -d -m ~/pingueinstein/pingueinstein.py
