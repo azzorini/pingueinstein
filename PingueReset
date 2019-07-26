@@ -11,7 +11,7 @@ do
     fi
 	
 	# Guardamos la hora en formato HH
-	hora=$(echo $(date) | cut -d ":" -f 1 | cut -d " " -f 4)
+	hora=$(echo 10#$(date) | cut -d ":" -f 1 | cut -d " " -f 4)
 	# Si el programa se acaba de arrancar o son las 5 am se clona el github
 	if (($hora == 5 || $id == 0))
 	then
