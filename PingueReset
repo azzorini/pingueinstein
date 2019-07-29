@@ -13,10 +13,11 @@ do
         # Si el programa se acaba de arrancar o son las 5 am se clona el github
         if (($hora == 5 || $id == 0))
         then
-                cd ~
+                cd /home/bots/
                 rm -rf pingueinstein
                 git clone https://github.com/azzorini/pingueinstein
-                cp TOKEN.txt pingueinstein
+                cp /home/bots/TOKEN.txt /home/bots/pingueinstein
+                grive
                 chmod +x pingueinstein/pingueinstein.py
         fi
     
