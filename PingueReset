@@ -21,7 +21,7 @@ do
                 chmod +x pingueinstein/pingueinstein.py
         fi
     
-    screen -S Pingu -d -m ~/pingueinstein/pingueinstein.py
+    screen -S Pingu -d -m /home/bots/pingueinstein/pingueinstein.py
     id=$(screen -ls | grep Pingu | cut -d '.' -f 1)
     date
     echo El programa se reiniciará en 55 minutos
