@@ -13,17 +13,18 @@ do
         # Si el programa se acaba de arrancar o son las 5 am se clona el github
         if (($hora == 5 || $id == 0))
         then
-                cd /home/bots/
+                cd /home/bots/files/
                 rm -rf pingueinstein
                 git clone https://github.com/azzorini/pingueinstein
-                cp /home/bots/TOKEN.txt /home/bots/pingueinstein
+                cp TOKEN.txt pingueinstein
                 grive
-                chmod +x pingueinstein/pingueinstein.py
-        fi
+                cd pingueistein
+                chmod +x pingueinstein.py
+    fi
     
     screen -S Pingu -d -m /home/bots/pingueinstein/pingueinstein.py
     id=$(screen -ls | grep Pingu | cut -d '.' -f 1)
     date
     echo El programa se reiniciará en 55 minutos
-    sleep 55m
+    sleep 5m
 done
