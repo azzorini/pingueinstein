@@ -32,7 +32,7 @@ commands = {  # command description used in the "help" command
 			  #'juego': 'Hacer un movimiento en la partida (/juego b2)'
 }
 
-nMemes = 10
+nMemes = 9
 
 insultos = [" ligas menos que un gas noble", " eres el mejor protón de un átomo de hidrógeno",
 	   ", hazle caso a Ignacio y mete los dedos en un enchufe", ", 28 hostias te mereces",
