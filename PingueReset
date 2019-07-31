@@ -33,5 +33,5 @@ do
 
     date
     echo El programa se reiniciará en 55 minutos
-    sleep 55m
+    sleep 1m
 done
