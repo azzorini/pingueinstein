@@ -32,6 +32,6 @@ do
     id=$(screen -ls | grep Pingu | cut -d '.' -f 1)
 
     date
-    echo El programa se reiniciará en 1 minutos
-    sleep 1m
+    echo El programa se reiniciará en 5 minutos
+    sleep 5m
 done
