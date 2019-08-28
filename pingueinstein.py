@@ -55,7 +55,23 @@ chistes = ["Van dos y se cae PRADO",
 		   "Un vector le dice a un escalar a punto de suicidarse:\n-¡Para, que todo en esta vida tiene solución!\nA lo que el escalar responde:\n-Mi vida nunca tuvo sentido",
 		   "Esto es una discusión entre i y pi:\ni:Sé racional\npi:Sé real",
 		   "Schrödinger va en su coche a toda velocidad cuando la policía lo para y nota algo raro en su caja\n\nPolicía: ¡Abra su caja!\n\n*Schrödinger la abre sin ningún problema*\n\nEl policía queda atónito al ver al gato y dice:\nPolicía: Está muerto\nSchrödinger: Ahora lo está",
-		   "Va Heisenberg en su coche por la autovía y lo para un policía. Éste le dice:\n-¿Sabe usted que va a 140 km/h?\n-¡Mierda, ya no sé donde estoy!"]
+		   "Va Heisenberg en su coche por la autovía y lo para un policía. Éste le dice:\n-¿Sabe usted que va a 140 km/h?\n-¡Mierda, ya no sé donde estoy!"
+                   """Un número infinito contable de ingenieros se acerca a una barra de un bar y dice el primero:\n
+-Yo quiero media cerveza\n
+A lo que el segundo añade:\n
+-Yo quiero un cuarto de cerveza\n
+A lo que el tercero responde:\n
+-Y yo un octavo\n
+Sigue el cuarto:\n
+-Yo 1/16\n
+El quinto:\n
+-Yo 1/32
+...\n
+Y el enésimo:\n
+-Yo 1/2^n\n\n
+
+A lo que el camarero les responde:\n
+-Chicos mejor les pongo una cerveza pa que se la repartan que ustedes no conocen su límite"""]
 
 def definition_to_function(s):
     lhs, rhs = s.split("=", 1)
