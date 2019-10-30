@@ -370,6 +370,43 @@ def trollFail(m):
     bot.reply_to(m, "Fail, la nota que vas a tener en " + random.choice(asignaturaschungas))
     
 
+#############################################
+#Comunicados a los grupos
+def lee_grupos(groupsfile, dic):
+	f = open(groupsfile, "r+")
+	group = f.readline()
+	usr = f.readline()
+	f.readline()
+	while (group != '' and usr != ''):
+		dic[int(group)] = usr
+		group = f.readline()
+		usr = f.readline()
+		f.readline()
+		
+def guarda_grupos(groupsfile, dic, m):
+	if (m.chat.type != "private"):
+		f = open(groupsfile, "w+")
+		for key in dic:
+			f.write(str(key) + "\n" + dic[key] + "\n")
+	
+grupos = {} # Diccionario de chats de Telegram
+lee_grupos("grupos.txt", grupos)
+
+
+""""
+@bot.message_handler(commands=['comunicado'])
+def send_mensaje(m):
+    text = m.text[len("/comunicado "):]
+    tam = len(text)
+    i = 0
+    while (i < tam and text[i] != ' '):
+        i += 1
+    if (i == tam):
+        return
+    mensaje = text[i+1:]	
+    bot.send_message(cid, mensaje)
+
+"""""
 	
 #############################################
 
