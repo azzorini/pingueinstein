@@ -10,6 +10,7 @@ import time # Librería para hacer que el programa que controla el bot no se aca
 import random
 import logging
 import sympy
+from sympy.parsing.sympy_parser import parse_expr
 import tresenraya as TER
 
 token_file = open("TOKEN.txt", "r") # "TOKEN.txt" tiene el token que Bot Father nos dio en la primera línea
@@ -22,12 +23,13 @@ partidas = {}
 
 commands = {  # command description used in the "help" command
 
-              'start': 'Arranca a este inteligente pingüino',
-              'help': 'Ayuda de este genio',
-			  'chiste': 'Chiste 100tifiko',
-			  'einstein': 'Meme de einstein con el texto que se le pase',
-			  'integra': '/integra a b f(x): Integra f(x) entre a y b',
-			  'meme100tifiko': 'Manda un meme 100tifiko aleatorio'
+		'start': 'Arranca a este inteligente pingüino',
+		'help': 'Ayuda de este genio',
+		'chiste': 'Chiste 100tifiko',
+		'einstein': 'Meme de einstein con el texto que se le pase',
+		'integra': '/integra a b f(x): Integra f(x) entre a y b',
+		'meme100tifiko': 'Manda un meme 100tifiko aleatorio',
+		'primitiva': '/primitiva f(x): Calcula la primitiva de f(x)'
 			  #'tres': 'Unirse/crear una partida de tres en raya',
 			  #'juego': 'Hacer un movimiento en la partida (/juego b2)'
 }
@@ -226,6 +228,25 @@ def integral(m):
         return
     bot.send_message(cid, "La integral de {} entre {} y {} da aproximadamente {}".format(Sfuncion, a, b, valor))
 
+@bot.message_handler(commands=['primitiva'])
+def primitiva(m):
+	cid = m.chat.id
+	funcion = m.text[len("/primitiva "):]
+	try:
+		f = parse_expr(funcion)
+	except:
+		bot.send_message(cid, "La función {} no es una función de x válida".format(funcion))
+		return
+	try:
+		I = sympy.integrate(f)
+	except:
+		bot.send_message(cid, "La función {} no puede integrarse, asegúrese de que solo tiene x de variable".format(sympy.pretty(f)))
+		return
+	C = sympy.Symbol('C', constant=True)
+	ecuacion  = sympy.Eq(sympy.Integral(f), I+C)
+	
+	bot.send_message(cid, sympy.pretty(ecuacion))
+	
 @bot.message_handler(commands=['msg'])
 def send_mensaje(m):
     text = m.text[len("/msg "):]
