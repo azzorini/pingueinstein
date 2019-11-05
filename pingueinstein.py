@@ -244,7 +244,7 @@ def primitiva(m):
 	try:
 		I = sympy.integrate(f)
 	except:
-		bot.send_message(cid, "La función {} no puede integrarse, asegúrese de que solo tiene x de variable".format(sympy.pretty(f)))
+		bot.send_message(cid, "La función {} no puede integrarse, asegúrese de que solo tiene x de variable".format(funcion))
 		return
 	
 	ecuacion  = sympy.Eq(sympy.Integral(f), I)
