@@ -9,6 +9,7 @@ from PIL import ImageDraw
 import time # Librería para hacer que el programa que controla el bot no se acabe
 import random
 import logging
+import os
 import sympy
 from sympy.parsing.sympy_parser import parse_expr
 import tresenraya as TER
@@ -228,6 +229,9 @@ def integral(m):
         return
     bot.send_message(cid, "La integral de {} entre {} y {} da aproximadamente {}".format(Sfuncion, a, b, valor))
 
+latex_doc = ["\\documentclass{article}\n\\usepackage{amsmath}\n\\usepackage[margin=5px]{geometry}\n\\thispagestyle{empty}\n\n\\begin{document}\n\t\\begin{math}",
+			 "\\end{math}\n\\end{document}"]
+	
 @bot.message_handler(commands=['primitiva'])
 def primitiva(m):
 	cid = m.chat.id
@@ -242,10 +246,20 @@ def primitiva(m):
 	except:
 		bot.send_message(cid, "La función {} no puede integrarse, asegúrese de que solo tiene x de variable".format(sympy.pretty(f)))
 		return
-	C = sympy.Symbol('C', constant=True)
-	ecuacion  = sympy.Eq(sympy.Integral(f), I+C)
 	
-	bot.send_message(cid, sympy.pretty(ecuacion))
+	ecuacion  = sympy.Eq(sympy.Integral(f), I)
+	
+	tex_content = latex_doc[0] + sympy.latex(ecuacion) + "+C" + latex_doc[1]
+
+	f = open("primitiva.tex", 'w')
+
+	f.write(tex_content)
+
+	f.close()
+
+	os.system("pdflatex primitiva.tex && pdfcrop primitiva.pdf && pdftoppm primitiva-crop.pdf | pnmtopng > primitiva.png")
+	
+	bot.send_photo(cid, open("primitiva.png", "rb"))
 	
 @bot.message_handler(commands=['msg'])
 def send_mensaje(m):
