@@ -246,8 +246,8 @@ def primitiva(m):
 		bot.send_message(cid, "La función {} no es una función de x válida".format(funcion))
 		return
 	try:
-		queue = Queue()
-		p = Process(target=intento_integracion, args=(f, queue,))
+		queue = mp.Queue()
+		p = mp.Process(target=intento_integracion, args=(f, queue,))
 		p.start()
 		I = queue.get()
 		p.join(20)
