@@ -10,6 +10,7 @@ import time # Librería para hacer que el programa que controla el bot no se aca
 import random
 import logging
 import os
+import multiprocessing as mp
 import sympy
 from sympy.parsing.sympy_parser import parse_expr
 import tresenraya as TER
@@ -231,7 +232,10 @@ def integral(m):
 
 latex_doc = ["\\documentclass{article}\n\\usepackage{amsmath}\n\\usepackage[margin=5px]{geometry}\n\\thispagestyle{empty}\n\n\\begin{document}\n\t\\begin{math}",
 			 "\\end{math}\n\\end{document}"]
-	
+
+def intento_integracion(f, q):
+	q.put(sympy.integrate(f))
+
 @bot.message_handler(commands=['primitiva'])
 def primitiva(m):
 	cid = m.chat.id
@@ -242,7 +246,14 @@ def primitiva(m):
 		bot.send_message(cid, "La función {} no es una función de x válida".format(funcion))
 		return
 	try:
-		I = sympy.integrate(f)
+		queue = Queue()
+		p = Process(target=intento_integracion, args=(f, queue,))
+		p.start()
+		I = queue.get()
+		p.join(20)
+		if (p.is_alive()):
+	        	p.terminate()
+	        	p.join()
 	except:
 		bot.send_message(cid, "La función {} no puede integrarse, asegúrese de que solo tiene x de variable".format(funcion))
 		return
