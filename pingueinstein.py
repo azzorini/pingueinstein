@@ -246,14 +246,15 @@ def primitiva(m):
 		bot.send_message(cid, "La función {} no es una función de x válida".format(funcion))
 		return
 	try:
-		queue = mp.Queue()
-		p = mp.Process(target=intento_integracion, args=(f, queue,))
-		p.start()
-		I = queue.get()
-		p.join(20)
-		if (p.is_alive()):
-	        	p.terminate()
-	        	p.join()
+		#queue = mp.Queue()
+		#p = mp.Process(target=intento_integracion, args=(f, queue,))
+		#p.start()
+		#I = queue.get()
+		#p.join(20)
+		#if (p.is_alive()):
+	        #	p.terminate()
+	        #	p.join()
+		I = sympy.integrate(f)
 	except:
 		bot.send_message(cid, "La función {} no puede integrarse, asegúrese de que solo tiene x de variable".format(funcion))
 		return
@@ -262,15 +263,15 @@ def primitiva(m):
 	
 	tex_content = latex_doc[0] + sympy.latex(ecuacion) + "+C" + latex_doc[1]
 
-	f = open("/home/bots/files/pingueinstein/primitiva.tex", 'w')
+	f = open("primitiva.tex", 'w')
 
 	f.write(tex_content)
 
 	f.close()
 
-	os.system("pdflatex /home/bots/files/pingueinstein/primitiva.tex -output-directory=/home/bots/files/pingueinstein && pdfcrop /home/bots/files/pingueinstein/primitiva.pdf /home/bots/files/pingueinstein/primitiva-crop.pdf && pdftoppm /home/bots/files/pingueinstein/primitiva-crop.pdf | pnmtopng > /home/bots/files/pingueinstein/primitiva.png")
+	os.system("pdflatex primitiva.tex && pdfcrop primitiva.pdf primitiva-crop.pdf && pdftoppm primitiva-crop.pdf | pnmtopng > primitiva.png && mv primitiva.png /home/bots/files/pingueinstein/primitiva.png")
 	
-	bot.send_photo(cid, open("/home/bots/files/pingueinstein/primitiva.png", "rb"))
+	bot.send_photo(cid, open("primitiva.png", "rb"))
 	
 @bot.message_handler(commands=['msg'])
 def send_mensaje(m):
