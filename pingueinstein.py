@@ -312,14 +312,14 @@ def loveyou(m):
         user = m.from_user.first_name + ' ' + m.from_user.last_name
         bot.send_message(cid, "¡{} ME CAGO EN TOH YA VA SIENDO HORA DE QUE TE HAGAS UN ALIAS TANTO FASTIDIAR A LA POBRE GENTE QUE PROGRAMAMOS BOTS!".format(user.upper()))
 
-#video = open("VideoNavidad.mp4", "rb")
-
+	
+video = open("VideoNavidad.mp4", "rb")
 @bot.message_handler(func=lambda message: message.content_type == "text" and "feliz navidad" in message.text.lower())
 def FelizNavidad(m):
     cid = m.chat.id
     snowman = u'\U000026C4'
     
-#    bot.send_video(cid, video)
+    bot.send_video(cid, video)
     bot.send_message (cid, "¡¡Feliz Navidad!!\n¡Que Bernier y Galindo os regalen muchos aprobados, los vais a nesecitar! " + snowman)
 
 @bot.message_handler(func=lambda message: message.content_type == "text" and ("buenos dias" in message.text.lower() or "buenos días" in message.text.lower()))
