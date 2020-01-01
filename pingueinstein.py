@@ -322,6 +322,10 @@ def FelizNavidad(m):
     bot.send_video(cid, video)
     bot.send_message (cid, "¡¡Feliz Navidad!!\n¡Que Bernier y Galindo os regalen muchos aprobados, los vais a nesecitar! " + snowman)
 
+@bot.message_handler(func=lambda message: message.content_type == "text" and ("feliz año" in message.text.lower() or "feliz 2020" in message.text.lower()))
+def newyear(m):
+    bot.reply_to(m, "あけおめ！\n \n Feliz año nuevo! \n \n Feliz año 2020 \n \n Os deseo a todos un feliz año \n \n 🎉🎊🎉🎊🎉🎊🎉🎊🎉🎊")
+
 @bot.message_handler(func=lambda message: message.content_type == "text" and ("buenos dias" in message.text.lower() or "buenos días" in message.text.lower()))
 def buenos_dias(m):
 	cid = m.chat.id
