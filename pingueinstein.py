@@ -263,15 +263,15 @@ def primitiva(m):
 	
 	tex_content = latex_doc[0] + sympy.latex(ecuacion) + "+C" + latex_doc[1]
 
-	f = open("primitiva.tex", 'w')
+	f = open("/home/bots/files/pingueinstein/primitiva.tex", 'w')
 
 	f.write(tex_content)
 
 	f.close()
 
-	os.system("pdflatex primitiva.tex && pdfcrop primitiva.pdf primitiva-crop.pdf && pdftoppm primitiva-crop.pdf | pnmtopng > primitiva.png && mv primitiva.png /home/bots/files/pingueinstein/primitiva.png")
+	os.system("pdflatex -output-directory=/home/bots/files/pingueinstein /home/bots/files/pingueinstein/primitiva.tex && pdfcrop /home/bots/files/pingueinstein/primitiva.pdf /home/bots/files/pingueinstein/primitiva-crop.pdf && pdftoppm /home/bots/files/pingueinstein/primitiva-crop.pdf | pnmtopng > /home/bots/files/pingueinstein/primitiva.png")
 	
-	bot.send_photo(cid, open("primitiva.png", "rb"))
+	bot.send_photo(cid, open("/home/bots/files/pingueinstein/primitiva.png", "rb"))
 	
 @bot.message_handler(commands=['msg'])
 def send_mensaje(m):
