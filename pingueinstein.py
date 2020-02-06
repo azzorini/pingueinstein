@@ -261,6 +261,10 @@ def primitiva(m):
 	
 	ecuacion  = sympy.Eq(sympy.Integral(f), I)
 	
+	if (ecuacion):
+		bot.send_message(cid, "No se ha enccontrado solución analítica para la función: {}".format(funcion))
+		return
+	
 	tex_content = latex_doc[0] + sympy.latex(ecuacion) + "+C" + latex_doc[1]
 
 	f = open("/home/bots/files/pingueinstein/primitiva.tex", 'w')
