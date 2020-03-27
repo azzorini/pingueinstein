@@ -11,10 +11,11 @@ From master branch:
 .. code-block:: console
 
      $ sudo apt-get install python3-pip
-     $ pip3 install pillow
-     $ pip3 install pyTellegramBotAPI
+     $ pip3 install pillow git
+     $ git clone https://github.com/eternnoir/pyTelegramBotAPI.git
+     $ cd pyTelegramBotAPI
+     $ python setup.py install
      $ sudo apt get-install python3-sympy
-     $ sudo apt install git
      $ git clone https://github.com/azzorini/pingueinstein
      # To execute:
      $ cd pingueinstein
