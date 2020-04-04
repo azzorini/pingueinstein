@@ -31,7 +31,8 @@ commands = {  # command description used in the "help" command
 		'einstein': 'Meme de einstein con el texto que se le pase',
 		'integra': '/integra a b f(x): Integra f(x) entre a y b',
 		'meme100tifiko': 'Manda un meme 100tifiko aleatorio',
-		'primitiva': '/primitiva f(x): Calcula la primitiva de f(x)'
+		'primitiva': '/primitiva f(x): Calcula la primitiva de f(x)',
+		'animos_covid': '/animos_covid: Manda animos para superar esta pandemia'
 			  #'tres': 'Unirse/crear una partida de tres en raya',
 			  #'juego': 'Hacer un movimiento en la partida (/juego b2)'
 }
@@ -75,6 +76,9 @@ Y el enésimo:\n
 -Yo 1/2^n\n\n
 A lo que el camarero les responde:\n
 -Chicos mejor les pongo una cerveza pa que se la repartan que ustedes no conocen su límite"""]
+
+asignaturaschungas = ["Mecánica", "Termodinámica", "Electromagnetismo", "Cuántica",
+                      "Física General", "Complejos", "Circuitos", "Álgebra"]
 
 def definition_to_function(s):
     lhs, rhs = s.split("=", 1)
@@ -267,15 +271,15 @@ def primitiva(m):
 	
 	tex_content = latex_doc[0] + sympy.latex(ecuacion) + "+C" + latex_doc[1]
 
-	f = open("/home/bots/files/pingueinstein/primitiva.tex", 'w')
+	f = open("/root/primitiva.tex", 'w')
 
 	f.write(tex_content)
 
 	f.close()
 
-	os.system("pdflatex -output-directory=/home/bots/files/pingueinstein /home/bots/files/pingueinstein/primitiva.tex && pdfcrop /home/bots/files/pingueinstein/primitiva.pdf /home/bots/files/pingueinstein/primitiva-crop.pdf && pdftoppm /home/bots/files/pingueinstein/primitiva-crop.pdf | pnmtopng > /home/bots/files/pingueinstein/primitiva.png")
+	os.system("pdflatex -output-directory=/root /root/primitiva.tex && pdfcrop /root/primitiva.pdf /home/bots/files/pingueinstein/primitiva-crop.pdf && pdftoppm /root/primitiva-crop.pdf | pnmtopng > /root/primitiva.png")
 	
-	bot.send_photo(cid, open("/home/bots/files/pingueinstein/primitiva.png", "rb"))
+	bot.send_photo(cid, open("/root/primitiva.png", "rb"))
 	
 @bot.message_handler(commands=['msg'])
 def send_mensaje(m):
@@ -296,6 +300,11 @@ def send_mensaje(m):
 def meme(m):
     cid = m.chat.id
     bot.send_photo(cid, open("Meme" + str(random.randint(1, nMemes)) + ".jpg", "rb"))
+
+@bot.message_handler(commands=['animos_covid'])
+def meme(m):
+    cid = m.chat.id
+    bot.send_message(cid, "Ánimo, si pudiste con {} podrás con este maldito virus".format(random.choice(asginaturaschungas)))
 
 @bot.message_handler(func=lambda message: message.content_type == "text" and message.text.lower() == "salu2")
 def saludo(m):
@@ -415,9 +424,6 @@ calixtofrases=["Uuuuhhh niceee", "I'm native from Ciudad Real... Royal City", "P
 @bot.message_handler(func=lambda message: message.content_type == "text" and "calixto" in message.text.lower())
 def Calixto(m):
     bot.reply_to(m, random.choice(calixtofrases))
-
-asignaturaschungas = ["Mecánica", "Termodinámica", "Electromagnetismo", "Cuántica",
-                      "Física General", "Complejos", "Circuitos", "Álgebra"]
 
 @bot.message_handler(func=lambda message: message.content_type == "text" and "fail" in message.text.lower())
 def trollFail(m):
