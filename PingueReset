@@ -1,13 +1,21 @@
 #!/bin/bash
 
-id=0
+# Move into the directory with all Linux-Minecraft-Scripts
+cd "$( dirname $0 )"
 
+# Read configuration file
+source config.cfg
+
+# Move into the minecraft directory.
+cd $botDir
+
+id=0
 while true
 do
 	# Si hay un proceso abierto lo cerramos
     if (($id != 0))
     then
-        screen -list Pingu | cut -d. -f1 | awk '{print $1}' | xargs kill
+        screen -ls | grep Pingu | cut -d. -f1 | awk '{print $1}' | xargs kill
     fi
 	
 	# Guardamos la hora en formato HH
@@ -15,11 +23,11 @@ do
 	# Si el programa se acaba de arrancar o son las 5 am se clona el github
 	if (($hora == 5 || $id == 0))
 	then
-		cd ~
+		cd $botDir
 		rm -rf pingueinstein
 		git clone https://github.com/azzorini/pingueinstein
-		cp /root/TOKEN.txt /root/pingueinstein
-		cd /root/pingueinstein
+		cp $tokenDir $botDir
+		cd $botDirpingueinstein
 		chmod +x pingueinstein.py
 	fi
     
