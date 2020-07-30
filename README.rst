@@ -15,7 +15,7 @@ From master branch:
      $ git clone https://github.com/eternnoir/pyTelegramBotAPI.git
      $ cd pyTelegramBotAPI
      $ python setup.py install
-     $ sudo apt get-install python3-sympy
+     $ sudo apt-get install python3-sympy
      $ git clone https://github.com/azzorini/pingueinstein
      # To execute:
      $ cd pingueinstein
