@@ -16,7 +16,7 @@ from sympy.parsing.sympy_parser import parse_expr
 import tresenraya as TER
 
 token_file = open("TOKEN.txt", "r") # "TOKEN.txt" tiene el token que Bot Father nos dio en la primera línea
-TOKEN = token_file.readline()
+TOKEN = token_file.readline().replace("\n", "")
 token_file.close()
 
 partidas = {}
@@ -31,8 +31,7 @@ commands = {  # command description used in the "help" command
 		'einstein': 'Meme de einstein con el texto que se le pase',
 		'integra': '/integra a b f(x): Integra f(x) entre a y b',
 		'meme100tifiko': 'Manda un meme 100tifiko aleatorio',
-		'primitiva': '/primitiva f(x): Calcula la primitiva de f(x)',
-		'animos_covid': '/animos_covid: Manda animos para superar esta pandemia'
+		'primitiva': '/primitiva f(x): Calcula la primitiva de f(x)'
 			  #'tres': 'Unirse/crear una partida de tres en raya',
 			  #'juego': 'Hacer un movimiento en la partida (/juego b2)'
 }
@@ -79,6 +78,8 @@ A lo que el camarero les responde:\n
 
 asignaturaschungas = ["Mecánica", "Termodinámica", "Electromagnetismo", "Cuántica",
                       "Física General", "Complejos", "Circuitos", "Álgebra"]
+
+working_dir = os.getcwd()
 
 def definition_to_function(s):
     lhs, rhs = s.split("=", 1)
@@ -265,21 +266,20 @@ def primitiva(m):
 	
 	ecuacion  = sympy.Eq(sympy.Integral(f), I)
 	
-	if (ecuacion):
-		bot.send_message(cid, "No se ha enccontrado solución analítica para la función: {}".format(funcion))
-		return
+	#if (ecuacion):
+		#bot.send_message(cid, "No se ha enccontrado solución analítica para la función: {}".format(funcion))
+		#return
 	
 	tex_content = latex_doc[0] + sympy.latex(ecuacion) + "+C" + latex_doc[1]
 
-	f = open("/root/primitiva.tex", 'w')
+	f = open(working_dir + "/primitiva.tex", 'w')
 
 	f.write(tex_content)
 
 	f.close()
 
-	os.system("pdflatex -output-directory=/root /root/primitiva.tex && pdfcrop /root/primitiva.pdf /home/bots/files/pingueinstein/primitiva-crop.pdf && pdftoppm /root/primitiva-crop.pdf | pnmtopng > /root/primitiva.png")
-	
-	bot.send_photo(cid, open("/root/primitiva.png", "rb"))
+	os.system("pdflatex -output-directory=" + working_dir + " " + working_dir + "/primitiva.tex && pdfcrop " + working_dir + "/primitiva.pdf " + working_dir + "/primitiva-crop.pdf && pdftoppm " + working_dir + "/primitiva-crop.pdf | pnmtopng > " + working_dir + "/primitiva.png")
+	bot.send_photo(cid, open(working_dir + "/primitiva.png", "rb"))
 	
 @bot.message_handler(commands=['msg'])
 def send_mensaje(m):
