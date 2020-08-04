@@ -265,10 +265,12 @@ def primitiva(m):
 		return
 	
 	ecuacion  = sympy.Eq(sympy.Integral(f), I)
-	
-	#if (ecuacion):
-		#bot.send_message(cid, "No se ha enccontrado solución analítica para la función: {}".format(funcion))
-		#return
+	try:
+		if (ecuacion):
+			bot.send_message(cid, "No se ha enccontrado solución analítica para la función: {}".format(funcion))
+			return
+	except:
+		pass
 	
 	tex_content = latex_doc[0] + sympy.latex(ecuacion) + "+C" + latex_doc[1]
 
