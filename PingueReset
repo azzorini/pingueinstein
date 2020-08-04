@@ -1,12 +1,9 @@
 #!/bin/bash
 
-# Move into the directory with all Linux-Minecraft-Scripts
+# Move into the directory with all Pingu-files
 cd "$( dirname $0 )"
 
-# Read configuration file
-source config.cfg
-
-# Move into the minecraft directory.
+# Move into the bot directory.
 cd $botDir
 
 id=0
