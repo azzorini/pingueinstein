@@ -17,11 +17,37 @@ import tresenraya as TER
 
 token_file = open("TOKEN.txt", "r") # "TOKEN.txt" tiene el token que Bot Father nos dio en la primera línea
 TOKEN = token_file.readline().replace("\n", "")
+password = token_file.readline().replace("\n", "")
 token_file.close()
 
 partidas = {}
 
+def read_jokes(filename): 
+	r = []
+	f = open(filename, "r")
+	line = f.readline()
+	while (line != ""):
+		if (line == "[JOKE]\n"):
+			chiste = f.readline().replace("\n", "")
+			line = f.readline()
+			while (line != "[JOKE]\n" and line != ""):
+				chiste += "\n" + line.replace("\n", "")
+				line = f.readline()
+			r.append(chiste)
+	return r
 
+def muestra_lista(lista): 
+	i = 0 
+	r = "" 
+	for elem in lista: 
+		i += 1 
+		r += str(i) + ": " + elem + "\n\n"
+	return r
+
+def guarda_chistes(filename, chistes):
+	f = open(filename, "w")
+	for chiste in chistes:
+		f.write("[JOKE]\n" + chiste + "\n")
 
 commands = {  # command description used in the "help" command
 
@@ -31,7 +57,9 @@ commands = {  # command description used in the "help" command
 		'einstein': 'Meme de einstein con el texto que se le pase',
 		'integra': '/integra a b f(x): Integra f(x) entre a y b',
 		'meme100tifiko': 'Manda un meme 100tifiko aleatorio',
-		'primitiva': '/primitiva f(x): Calcula la primitiva de f(x)'
+		'primitiva': '/primitiva f(x): Calcula la primitiva de f(x)',
+		'addchiste': '/addchiste chiste: Añade el chiste a la lista de chistes',
+		'listachistes': '/listachistes: Muestra una lista con todos los chistes incluídos'
 			  #'tres': 'Unirse/crear una partida de tres en raya',
 			  #'juego': 'Hacer un movimiento en la partida (/juego b2)'
 }
@@ -44,37 +72,11 @@ insultos = [" ligas menos que un gas noble", " eres el mejor protón de un átom
 	   " haces menos falta que un paracaídas en un submarino", ", multiplícate por cero",
 	   ", me recuerdas a PRADO. ¡Siempre estás por los suelos!"]
 
-chistes = ["Van dos y se cae PRADO",
-		   "Making bad chemistry jokes because all the good ones argon",
-		   "¿Qué dice un grupo CH3 en lo alto de un tejado?\n¿Metilo o no metilo?",
-		   "1 de cada 10 personas saben binario",
-		   "Mi mujer tiene un gran físico - Albert Einstein",
-		   "¿Cuál es la fórmula del agua bendita?\nH DIOS O",
-		   "¿Qué es un langostino?\nUna langosta con un triple enlace",
-		   "No soporto a los químicos, lo sodio",
-		   "-¿Cuántos físicos hacen falta para cambiar una bombilla?\n-Dos, uno para sujetar la bombilla y otro para rotar el universo.",
-		   "¿Cuál es la ley física más zen?\nLa ley de Ohm",
-		   "Fotón a protón:\n-Hey, vente a la fiesta, vamos a ir unos cuantos.",
-		   "¿Por qué se disuelve antes en agua un emo que un oso polar?\nPorque el emo es bipolar",
-		   "Un vector le dice a un escalar a punto de suicidarse:\n-¡Para, que todo en esta vida tiene solución!\nA lo que el escalar responde:\n-Mi vida nunca tuvo sentido",
-		   "Esto es una discusión entre i y pi:\ni:Sé racional\npi:Sé real",
-		   "Schrödinger va en su coche a toda velocidad cuando la policía lo para y nota algo raro en su caja\n\nPolicía: ¡Abra su caja!\n\n*Schrödinger la abre sin ningún problema*\n\nEl policía queda atónito al ver al gato y dice:\nPolicía: Está muerto\nSchrödinger: Ahora lo está",
-		   "Va Heisenberg en su coche por la autovía y lo para un policía. Éste le dice:\n-¿Sabe usted que va a 140 km/h?\n-¡Mierda, ya no sé donde estoy!",
-                   """Un número infinito contable de ingenieros se acerca a una barra de un bar y dice el primero:\n
--Yo quiero media cerveza\n
-A lo que el segundo añade:\n
--Yo quiero un cuarto de cerveza\n
-A lo que el tercero responde:\n
--Y yo un octavo\n
-Sigue el cuarto:\n
--Yo 1/16\n
-El quinto:\n
--Yo 1/32
-...\n
-Y el enésimo:\n
--Yo 1/2^n\n\n
-A lo que el camarero les responde:\n
--Chicos mejor les pongo una cerveza pa que se la repartan que ustedes no conocen su límite"""]
+try:
+	chistes = read_jokes("jokes.txt")
+except:
+	chistes = ["Van dos y se cae PRADO"]
+	guarda_chistes("jokes.txt", chistes)
 
 asignaturaschungas = ["Mecánica", "Termodinámica", "Electromagnetismo", "Cuántica",
                       "Física General", "Complejos", "Circuitos", "Álgebra"]
@@ -167,6 +169,29 @@ def command_help(m):
 def command_comentario(m): # Definimos una función que resuleva lo que necesitemos.
 	cid = m.chat.id # Guardamos el ID de la conversación para poder responder.
 	bot.send_message( cid, random.choice(chistes)) # Con la función 'send_message()' del bot, enviamos al ID almacenado el texto que queremos.
+
+@bot.message_handler(commands=['addchiste'])
+def command_addchiste(m):
+	chistes.append(m.text[len("/addchiste "):])
+	guarda_chistes("jokes.txt", chistes)
+
+@bot.message_handler(commands=['listachistes'])
+def command_listchiste(m):
+	cid = m.chat.id
+	bot.send_message(cid, muestra_lista(chistes))
+
+@bot.message_handler(commands=['rmchiste'])
+def command_addchiste(m):
+	cid = m.chat.id
+	try:
+		contra, num = m.text[len("/rmchiste "):].split(" ")
+		if (contra == password):
+			del chistes[int(num)-1]
+			guarda_chistes("jokes.txt", chistes)
+		else:
+			bot.send_message(cid, "Contraseña incorrecta")
+	except:
+		bot.send_message(cid, "Hubo un problema para borrar el chiste deseado")
 
 @bot.message_handler(commands=['einstein'])
 def einstein(m):
@@ -306,7 +331,7 @@ def meme(m):
 @bot.message_handler(commands=['animos_covid'])
 def meme(m):
     cid = m.chat.id
-    bot.send_message(cid, "Ánimo, si pudiste con {} podrás con este maldito virus".format(random.choice(asignaturaschungas)))
+    bot.send_message(cid, "Ánimo, si pudiste con {} podrás con este maldito virus".format(random.choice(asginaturaschungas)))
 
 @bot.message_handler(func=lambda message: message.content_type == "text" and message.text.lower() == "salu2")
 def saludo(m):
