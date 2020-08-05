@@ -1,4 +1,4 @@
 pillow
-python3-pip
+pip3
 git
-python3-sympy
+sympy
