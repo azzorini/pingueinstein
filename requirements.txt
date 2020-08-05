@@ -1,4 +1,4 @@
 pillow
-pip3
+pip
 git
 sympy
