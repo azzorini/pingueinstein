@@ -1,9 +1,12 @@
 #!/bin/bash
 
-# Move into the directory with all Pingu-files
+# Move into the directory with all Linux-Minecraft-Scripts
 cd "$( dirname $0 )"
 
-# Move into the bot directory.
+# Read configuration file
+source config.cfg
+
+# Move into the minecraft directory.
 cd $botDir
 
 id=0
@@ -21,8 +24,10 @@ do
 	if (($hora == 5 || $id == 0))
 	then
 		cd $botDir
-		rm -rf pingueinstein
+		mv pingueinstein pingueinstein-old
 		git clone https://github.com/azzorini/pingueinstein
+		mv pingueinstein-old/TOKEN.txt pingueinstein-old/jokes.txt pingueinstein
+		rm -rf pingueinstein-old
 		cp $tokenDir $botDir
 		cd $botDirpingueinstein
 		chmod +x pingueinstein.py
