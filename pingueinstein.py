@@ -306,7 +306,7 @@ def meme(m):
 @bot.message_handler(commands=['animos_covid'])
 def meme(m):
     cid = m.chat.id
-    bot.send_message(cid, "Ánimo, si pudiste con {} podrás con este maldito virus".format(random.choice(asginaturaschungas)))
+    bot.send_message(cid, "Ánimo, si pudiste con {} podrás con este maldito virus".format(random.choice(asignaturaschungas)))
 
 @bot.message_handler(func=lambda message: message.content_type == "text" and message.text.lower() == "salu2")
 def saludo(m):
